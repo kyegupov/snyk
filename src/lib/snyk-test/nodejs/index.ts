@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 import * as analytics from '../../analytics';
 import * as common from '../common';
 import * as detect from '../../detect';
-import * as nodejsPlugin from '../nodejs-plugin';
+import * as nodejsPlugin from '../../plugins/nodejs-plugin';
 import * as depGraphLib from '@snyk/dep-graph';
 import {AnnotatedIssue, convertTestDepGraphResultToLegacy} from '../legacy';
 

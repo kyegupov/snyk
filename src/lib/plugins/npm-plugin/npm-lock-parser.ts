@@ -1,14 +1,16 @@
 import * as baseDebug from 'debug';
 const debug = baseDebug('snyk');
 import * as path from 'path';
+import * as snyk from '../../index';
 import * as spinner from '../../spinner';
 import * as _ from 'lodash';
 import * as analytics from '../../analytics';
 import * as fs from 'fs';
 import * as lockFileParser from 'snyk-nodejs-lockfile-parser';
 import {PkgTree} from 'snyk-nodejs-lockfile-parser';
+import {Options} from '../types';
 
-export async function parse(root, targetFile, options): Promise<PkgTree> {
+export async function parse(root: string, targetFile: string, options: Options): Promise<PkgTree> {
   const lockFileFullPath = path.resolve(root, targetFile);
   if (!fs.existsSync(lockFileFullPath)) {
     throw new Error('Lockfile ' + targetFile + ' not found at location: ' +
@@ -20,8 +22,9 @@ export async function parse(root, targetFile, options): Promise<PkgTree> {
   const shrinkwrapFullPath = path.resolve(fullPath.dir, 'npm-shrinkwrap.json');
 
   if (!fs.existsSync(manifestFileFullPath)) {
-    throw new Error(`Could not find package.json at ${manifestFileFullPath} `
-      + `(lockfile found at ${targetFile})`);
+    throw new Error('Detected a lockfile at location: '
+      + lockFileFullPath + '\n However the package.json from location: ' +
+      manifestFileFullPath);
   }
 
   if (fs.existsSync(shrinkwrapFullPath)) {

@@ -20,11 +20,14 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
+# some tests are failing on npm@5, downgrade to npm@3
+# namely: protect-patch.test.js, wizard-prepare.test.js, wizard-prepublish.test.js
 - script: |
-    # some tests are failing on npm@5, downgrade to npm@3
-    # namely: protect-patch.test.js, wizard-prepare.test.js, wizard-prepublish.test.js
     npm i -g npm@^3.10.10
     npm --version
-    # npm test is configured for Linux, use "tap" command instead
+  displayName: 'downgrade npm'
+
+# npm test is configured for Linux, use "tap" command instead
+- script: |
     npm run tap
   displayName: 'npm test'

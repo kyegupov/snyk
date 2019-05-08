@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'vs2015-win2012r2'
 
 steps:
 - task: NodeTool@0
